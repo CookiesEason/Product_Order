@@ -2,7 +2,10 @@ package com.eason.sell.service.impl;
 
 import com.eason.sell.dataobject.OrderDetail;
 import com.eason.sell.dto.OrderDTO;
+import com.eason.sell.enums.OrderStatusEnum;
+import com.eason.sell.enums.PayStatus;
 import lombok.extern.java.Log;
+import org.aspectj.weaver.ast.Or;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,13 +76,22 @@ public class OrderServiceImplTest {
 
     @Test
     public void cancel() {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),result.getOrderStatus());
     }
 
     @Test
     public void finish() {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(),result.getOrderStatus());
     }
 
     @Test
     public void paid() {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatus.SUCCESS.getCode(),result.getPayStatus());
     }
 }
