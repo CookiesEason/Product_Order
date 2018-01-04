@@ -73,8 +73,8 @@ public class OrderServiceImpl implements OrderService {
         }
         // 3.写入订单数据库(OrderMaster和OrderDetail)
         OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO,orderMaster);
-        orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatus.WAIT.getCode());
@@ -92,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO findOne(String orderId) {
         OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
         if(orderMaster == null){
-            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
 
         List<OrderDetail> orderDetailList = orderDetailRepository.findByOrderId(orderId);

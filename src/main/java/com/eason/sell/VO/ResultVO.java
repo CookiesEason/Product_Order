@@ -1,5 +1,7 @@
 package com.eason.sell.VO;
 
+import com.eason.sell.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 /**
@@ -8,6 +10,7 @@ import lombok.Data;
  * 2017/12/30 14:16
  */
 @Data
+//@JsonSerialize(using = Date2LongSerializer.class)
 public class ResultVO<T> {
 
     /**错误码 */
