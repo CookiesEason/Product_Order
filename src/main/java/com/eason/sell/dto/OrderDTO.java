@@ -3,7 +3,9 @@ package com.eason.sell.dto;
 import com.eason.sell.dataobject.OrderDetail;
 import com.eason.sell.enums.OrderStatusEnum;
 import com.eason.sell.enums.PayStatus;
+import com.eason.sell.utils.EnumUtil;
 import com.eason.sell.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
@@ -55,4 +57,14 @@ public class OrderDTO {
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum(){
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatus getPayStatusEnum(){
+        return EnumUtil.getByCode(payStatus, PayStatus.class);
+    }
 }
