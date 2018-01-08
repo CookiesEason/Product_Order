@@ -1,6 +1,7 @@
 package com.eason.sell.enums;
 
 import lombok.Getter;
+import org.aspectj.apache.bcel.classfile.Code;
 
 /**
  * 商品状态
@@ -8,10 +9,10 @@ import lombok.Getter;
  * 2017/12/29 19:22
  */
 @Getter
-public enum ProductStatusEnum {
+public enum ProductStatusEnum implements CodeEnum {
 
     UP(0, "上架"),
-    DOWN(0, "下架")
+    DOWN(1, "下架")
     ;
 
     private Integer code;
