@@ -13,3 +13,6 @@ spring:
     port: 6379
 server:
   context-path: /sell
+logging:
+  level:
+    com.eason.sell.mapper: trace

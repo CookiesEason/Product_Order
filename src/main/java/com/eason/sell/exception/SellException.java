@@ -1,11 +1,13 @@
 package com.eason.sell.exception;
 
 import com.eason.sell.enums.ResultEnum;
+import lombok.Getter;
 
 /**
  * @author CookiesEason
  * 2018/1/2 14:08
  */
+@Getter
 public class SellException extends RuntimeException {
 
     private Integer code;
