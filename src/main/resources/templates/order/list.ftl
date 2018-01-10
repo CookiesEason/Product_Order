@@ -75,6 +75,51 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="Mymodal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">提醒</h4>
+                </div>
+                <div class="modal-body">
+                    你有新的订单
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" onclick="location.reload()" class="btn btn-default" data-dismiss="modal">查看新的订单</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script>
+        var websocket = null;
+        if('WebSocket' in window){
+            websocket = new WebSocket('ws://localhost:8080/sell/webSocket');
+        }else{
+            alert('Not support websocket')
+        }
+        websocket.onopen = function (ev) {
+            console.log("建立连接");
+        }
+        websocket.onclose = function (ev) {
+            console.log("关闭连接");
+        }
+        websocket.onmessage = function (ev) {
+            console.log("收到信息:" + ev.data);
+            $("#Mymodal").modal('show');
+
+        }
+        websocket.onerror = function (ev) {
+            alert("webSocket通信发生错误");
+        }
+        window.onbeforeunload = function (ev) {
+            websocket.close();
+        }
+    </script>
     </body>
 </html>
 

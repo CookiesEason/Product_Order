@@ -14,6 +14,7 @@ import com.eason.sell.enums.ResultEnum;
 import com.eason.sell.exception.SellException;
 import com.eason.sell.service.OrderService;
 import com.eason.sell.service.ProductService;
+import com.eason.sell.service.WebSocket;
 import com.eason.sell.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -47,6 +48,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -85,6 +89,8 @@ public class OrderServiceImpl implements OrderService {
                 e -> new CartDTO(e.getProductId(),e.getProductQuantity()))
                 .collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+        //发送webSocket消息
+        webSocket.sendMessage("有新的订单"+orderDTO.getOrderId());
         return orderDTO;
     }
 
